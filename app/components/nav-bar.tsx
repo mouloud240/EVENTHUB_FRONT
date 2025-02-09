@@ -11,6 +11,8 @@ const navItems = [
   { href: "/", label: "Home" },
   { href: "/events", label: "Events",protected:true },
   { href: "/dashboard", label: "Dashboard", protected: true },
+    { href: "/events/add", label: "Add Event", protected: true },
+
 ]
 
 export function NavBar() {

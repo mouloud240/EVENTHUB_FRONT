@@ -1,10 +1,9 @@
 export interface Event {
   id: string
-  title: string
+  name: string
   description: string
   date: string
-  location: string
-  organizer: string
+  createdBy: string
   city: string
   coverPic?: string
 }

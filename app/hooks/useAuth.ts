@@ -58,6 +58,23 @@ export function useAuth() {
       toast.error("Login failed. Please check your credentials.")
     }
   }
+     const loginWithGoogle = () => {
+  window.location.href = "http://localhost:3000/auth/google/login";    
+  
+  }   
+
+  const handleGoogleRedirect = async (data:{accessToken:string,refreshToken:string}) => {
+    try {
+      localStorage.setItem("AccesToken", data.accessToken)
+      localStorage.setItem("RefreshToken", data.refreshToken)
+      api.defaults.headers.common["Authorization"] = `Bearer ${data.accessToken}`
+      router.push("/")
+      toast.success("Logged in with Google successfully!")
+    } catch (error) {
+      console.error(error);
+      toast.error("Google login failed. Please try again.")
+    }
+  }  
   const signup = async (name: string, email: string, password: string) => {
     try {
       await auth.signup(name, email, password)
@@ -76,6 +93,6 @@ export function useAuth() {
     toast.success("Logged out successfully!")
   }
 
-  return { user, loading, login, logout,signup }
+  return { user, loading, login, logout,signup,loginWithGoogle,handleGoogleRedirect }
 }
 

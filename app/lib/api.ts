@@ -4,17 +4,16 @@ import type { Event, User } from "../types/event"
 // Auth endpoints
 // TODO: use Classes
 export const auth = {
-    signup: (name: string, email: string, password: string) => api.post("/auth/register", { name, email, password }),
-
   login: (email: string, password: string) => api.post("/auth/login", { email, password }),
+  signup: (name: string, email: string, password: string) => api.post("/auth/register", { name, email, password }),
 
-  googleLogin: () => api.get("/auth/google/login"),
+ googleLogin: () => api.get("/auth/google/login"),
 
+  googleRedirect: () => api.get("/auth/google/redirect"),
   refresh: () => api.post("/auth/refresh"),
 
   protected: () => api.get("/auth/protected"),
 }
-
 // User endpoints
 export const users = {
   getAll: () => api.get<User[]>("/users"),
@@ -32,9 +31,20 @@ export const events = {
 
   getPages: (page: number) => api.get<Event[]>(`/events/pages?page=${page}`),
 
-  getOne: (id: string) => api.get<Event>(`/events/${id}`),
+  getUserEvents:()=>api.get<Event[]>('events/user'),
+  getOne: (id: string) => api.get<Event>(`/events/${id}`,{
+    headers:{
+      Authorization:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM3OGJhM2RmLWU2MmYtNGI0My05MWFiLTBhNzQ1MWI1ZTEzYSIsImlhdCI6MTczOTExNzYzMywiZXhwIjoxNzM5MTIxMjMzfQ.nez7Fnxjxvwv_fHqRGqsptbFtksFgt2dxcKkjIWeJr8"
+    }
+  }),
 
-  create: (data: Omit<Event, "id">) => api.post("/events", data),
+  create: (data:FormData) => api.post("/events",data,
+ {
+      headers:{
+        'Content-Type':'multipart/form-data'
+      }
+    }
+  ),
 
   update: (id: string, data: Partial<Event>) => api.patch(`/events/${id}`, data),
 

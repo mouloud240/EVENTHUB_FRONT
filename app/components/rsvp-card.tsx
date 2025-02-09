@@ -19,13 +19,13 @@ export function RSVPCard({ rsvp, onCancel ,onReject,onAccept}: RSVPCardProps) {
         <div className="aspect-video w-full overflow-hidden">
           <img
             src={rsvp.event.coverPic || "/placeholder.svg"}
-            alt={rsvp.event.title}
+            alt={rsvp.event.name}
             className="h-full w-full object-cover"
           />
         </div>
       )}
       <CardHeader>
-        <h3 className="text-2xl font-bold">{rsvp.event.title}</h3>
+        <h3 className="text-2xl font-bold">{rsvp.event.name}</h3>
         <p className="text-muted-foreground">{rsvp.event.description}</p>
       </CardHeader>
       <CardContent>
@@ -49,6 +49,13 @@ export function RSVPCard({ rsvp, onCancel ,onReject,onAccept}: RSVPCardProps) {
           rsvp.status=="ACCEPTED" && <Button onClick={()=>{onCancel(rsvp.id)}} variant={"default"} className="bg-red-500">
             Cancel rsvsp</Button>
         }
+        {
+          rsvp.status=="REJECTED" &&<div className="flex gap-2"> <Button onClick={()=>{onCancel(rsvp.id)}} variant={"default"} className="bg-red-500">
+            Delete Rsvp </Button> 
+            <Button onClick={()=>{onAccept(rsvp.id)}} variant={"default"} className="bg-green-500">
+            Undo
+            </Button>
+          </div>        }
         {
           rsvp.status=="PENDING" &&<div className="flex gap-2"> <Button onClick={()=>{onAccept(rsvp.id)}} variant={"default"} className="bg-green-500">
             Accept
