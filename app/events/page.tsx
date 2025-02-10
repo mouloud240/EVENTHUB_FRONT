@@ -3,19 +3,17 @@
 
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
-import { getErrorMessage } from "./lib/error-handler"
-import ErrorBoundary from "./components/error-boundary"
-import { Event } from "./types/event"
-import { isAxiosError } from "axios"
+import { AxiosError, isAxiosError } from "axios"
 import { events, rsvp } from "../lib/api"
 import Loading from "../loading"
 import { EventCard } from "../components/event-card"
 import { ProtectedRoute } from "../components/protected-route"
+import { Event } from "../types/event"
 
 export default function HomePage() {
-  const [eventList, setEventList] = useState([])
+  const [eventList, setEventList] = useState<Event[]>([])
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const [error, setError] = useState<AxiosError|unknown>(null)
 
   useEffect(() => {
     const fetchEvents = async () => {

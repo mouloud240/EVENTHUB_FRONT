@@ -33,10 +33,7 @@ export const events = {
 
   getUserEvents:()=>api.get<Event[]>('events/user'),
   getOne: (id: string) => api.get<Event>(`/events/${id}`,{
-    headers:{
-      Authorization:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM3OGJhM2RmLWU2MmYtNGI0My05MWFiLTBhNzQ1MWI1ZTEzYSIsImlhdCI6MTczOTExNzYzMywiZXhwIjoxNzM5MTIxMjMzfQ.nez7Fnxjxvwv_fHqRGqsptbFtksFgt2dxcKkjIWeJr8"
-    }
-  }),
+    }),
 
   create: (data:FormData) => api.post("/events",data,
  {

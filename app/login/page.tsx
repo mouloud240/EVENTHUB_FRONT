@@ -12,16 +12,10 @@ import { Label } from "@/components/ui/label"
 export default function LoginPage() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const { login, loginWithGoogle, handleGoogleCallback } = useAuth()
+  const { login, loginWithGoogle,handleGoogleRedirect} = useAuth()
   const searchParams = useSearchParams()
 
-  useEffect(() => {
-    const code = searchParams.get("code")
-    if (code) {
-      handleGoogleCallback(code)
-    }
-  }, [searchParams, handleGoogleCallback])
-
+ 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     await login(email, password)

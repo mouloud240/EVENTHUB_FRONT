@@ -1,6 +1,7 @@
 
 import axios from "axios"
 import { auth } from "./api"
+import { toast } from "react-toastify"
 
 //TODO: Add refresh token logic
 const api = axios.create({
@@ -12,7 +13,7 @@ const api = axios.create({
   timeout: 10000, // 10 second timeout
 })
 
-const noAuthRoutes = ["/auth/login"]
+const noAuthRoutes = ["/auth/login","/auth/signup"]
 
 // Add auth token to requests if available
 api.interceptors.request.use((config) => {
@@ -27,32 +28,33 @@ api.interceptors.request.use((config) => {
       config.headers.Authorization = `Bearer ${token}`
     }
     if (!token) {
-
+      toast.warn('Session Expired');
+      
       window.location.href = "/login"
     }
   }
 
   return config
 })
-//api.interceptors.response.use(
-//  (response) => response,
-//  (error) => {
-//    if (error.response?.status === 401) {
-//      // Unauthorized, clear token and redirect to login
-//
-//        localStorage.getItem('RefreshToken')
-//         auth.refresh().then((res)=>{
-//        localStorage.setItem('AccesToken',res.data.accessToken)
-//        localStorage.setItem('RefreshToken',res.data.refreshToken)
-//        api.defaults.headers.common['Authorization'] = `Bearer ${res.data.accessToken}`
-//        return Promise.resolve()
-//      }).catch((err)=>{
-//        window.location.href='/login'
-//      })
-//          }
-//    return Promise.reject(error)
-//  }
-//)
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      // Unauthorized, clear token and redirect to login
+
+        localStorage.getItem('RefreshToken')
+         auth.refresh().then((res)=>{
+        localStorage.setItem('AccesToken',res.data.accessToken)
+        localStorage.setItem('RefreshToken',res.data.refreshToken)
+        api.defaults.headers.common['Authorization'] = `Bearer ${res.data.accessToken}`
+        return Promise.resolve()
+      }).catch((err)=>{
+        window.location.href='/login'
+      })
+          }
+    return Promise.reject(error)
+  }
+)
 
 export default api
 

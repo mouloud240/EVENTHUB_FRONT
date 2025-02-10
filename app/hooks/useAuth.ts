@@ -59,7 +59,7 @@ export function useAuth() {
     }
   }
      const loginWithGoogle = () => {
-  window.location.href = "http://localhost:3000/auth/google/login";    
+  window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/google/login`;    
   
   }   
 
