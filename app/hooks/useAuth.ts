@@ -60,6 +60,7 @@ export function useAuth() {
     }
   }
      const loginWithGoogle = () => {
+    console.log('login with google');
   window.location.href = `${process.env.NEXT_PUBLIC_API_URL}auth/google/login`;    
   
   }   
