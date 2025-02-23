@@ -7,6 +7,7 @@ import api from "../lib/axios"
 import { auth } from "../lib/api"
 import { toast } from "react-toastify"
 import { AxiosError } from "axios"
+import { getErrorMessage } from "../lib/error-handler"
 
 export function useAuth() {
   const [user, setUser] = useState(null)
@@ -81,8 +82,9 @@ export function useAuth() {
       toast.success('Signup successful! Please log in.')
       return await login(email, password)
     } catch (error) {
-      toast.error('Signup failed. Please try again.')
+     return getErrorMessage(error);
     }
+
   }
 
   const logout = () => {

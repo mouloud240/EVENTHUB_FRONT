@@ -15,6 +15,8 @@ export function getErrorMessage(error: unknown): string {
         return "You don't have permission to perform this action."
       case 404:
         return "The requested resource was not found."
+      case 417:
+        return 'User Already Exists please login'
       case 429:
         return "Too many requests. Please try again later."
       case 500:
