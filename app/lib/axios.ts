@@ -20,7 +20,6 @@ api.interceptors.request.use((config) => {
   if (noAuthRoutes.includes(config.url!)) {
     return config
   }
-
   // Ensure localStorage is accessed only on the client
   if (typeof window !== "undefined") {
     const token = localStorage.getItem("AccesToken")
@@ -29,7 +28,6 @@ api.interceptors.request.use((config) => {
     }
     if (!token) {
       toast.warn('Session Expired');
-      
       window.location.href = "/login"
     }
   }

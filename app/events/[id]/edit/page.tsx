@@ -12,17 +12,13 @@ async function getEvent(id: string): Promise<Event> {
     return data
   } catch (error:unknown) {
   if (isAxiosError(error)){
-  console.error("Failed to fetch event:", error.request)
-      
-
+  console.error("Failed to fetch event:", error.response?.data) 
   }
       notFound()
   }
 }
 
 export default async function EditEventPage({ params }: { params: { id: string } }) {
-  console.log(params.id);
-
   const event = await getEvent(params.id)
 
   

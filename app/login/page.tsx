@@ -9,6 +9,9 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
+import { FcGoogle } from "react-icons/fc";
+
+
 export default function LoginPage() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -50,10 +53,16 @@ export default function LoginPage() {
           </div>
           <div className="relative flex justify-center text-xs uppercase">
             <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
+
           </div>
         </div>
-        <Button type="button" variant="outline" className="w-full" onClick={loginWithGoogle}>
-          Continue with Google
+
+        <Button type="button" variant="outline" className="w-full flex justify-center" onClick={loginWithGoogle}>
+<FcGoogle/>
+
+          <p> Continue with Google
+          </p>
+                    
         </Button>
       </div>
     </div>
