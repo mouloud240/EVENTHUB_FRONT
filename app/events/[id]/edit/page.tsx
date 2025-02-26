@@ -1,4 +1,5 @@
-
+//just for now it is use client until I figure a solution to the cookies problem
+"use client"
 import { Suspense } from "react"
 import { notFound } from "next/navigation"
 import { events } from "@/app/lib/api"
